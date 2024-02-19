@@ -22,40 +22,47 @@
         <div class="row">
             <div class="col-md-4 col-sm-6 p-2 mt-3" >
                 <h3>Create an account</h3>
-                <!--<form:form action="/register" method="POST" modelAttribute="newUser">
+                `<form:form action="/register" method="POST" modelAttribute="newUser">
                     <div class="mb-3">
                         <div class="form-floating">
-                            <form:input cssClass="form-control" id="fullname" path="name">
-                            <form:label path="fullname">Name</form:label>
+                            <form:input cssClass="form-control" path="firstname"/>
+                            <form:label path="firstname">First Name</form:label>
                         </div>
-                        <form:errors path="name" class="errors" />
+                        <form:errors path="firstname" class="errors" />
                     </div>
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="email" class="form-control" id="email" name="email">
-                            <label for="email">Email address</label>
+                            <form:input cssClass="form-control" path="lastname"/>
+                            <form:label path="lastname">Last Name</form:label>
+                        </div>
+                        <form:errors path="lastname" class="errors" />
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" for="userEmail" name="email"/>
+                            <label for="userEmail">Email address</label>
                         </div>
                         <form:errors path="email" class="errors" />
                     </div>
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="newPassword" name="password">
-                            <label for="newPassword">Password</label>
+                            <form:password class="form-control" path="password"/>
+                            <form:label path="password">Password</form:label>
                         </div>
                         <form:errors path="password" class="errors" />
                     </div>
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="confirmPassword" name="confirm">
-                            <label for="confirmPassword">Confirm Password</label>
+                            <form:password class="form-control" path="confirmPassword"/>
+                            <form:label path="confirmPassword">Confirm Password</form:label>
                         </div>
-                        <form:errors path="confirm" class="errors" />
+                        <form:errors path="confirmPassword" class="errors" />
                     </div>
                     <div>
                         <input type="submit" class="form-control btn btn-outline-primary" value="Register">
                     </div>
 
-                </form:form>-->
+                </form:form>
             </div>
             <div class="col-md-3"></div>
             <div class="col-md-4 col-sm-6 p-2">
@@ -69,7 +76,7 @@
                     </div>
 
                 <h3>Login</h3>
-                <!--<form:form action="/login" method="POST" modelAttribute="newLogin">               
+                <form:form action="/login" method="POST" modelAttribute="loginUser">               
                     <div class="mb-3">
                         <div class="form-floating">
                             <input type="email" class="form-control" id="loginEmail" name="email">
@@ -80,15 +87,15 @@
                     
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="loginPassword" name="password">
-                            <label for="loginPassword">Password</label>
+                            <form:password class="form-control" path="password"/>
+                            <form:label path="password">Password</form:label>
                         </div>
                         <form:errors path="password" class="errors"  />
                     </div>
                     <div>
                         <input type="submit" class="form-control btn btn-outline-primary" value="Log in">
                     </div>
-                </form:form>-->
+                </form:form>
             </div>
         </div>
     </div>

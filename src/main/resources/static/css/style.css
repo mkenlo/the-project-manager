@@ -4,13 +4,17 @@ h3,
 h4,
 h5,
 h6 {
-    color: #DC143C;
+    color: #441EDA;
 }
 
 a{
-    color: #9F2B68;
     text-decoration: none;
 }
 a:hover{
     color: #DE3163;
+}
+.errors {
+    font-size: .875em;
+    margin-top: 0.25em;
+    color: #e60553;
 }
