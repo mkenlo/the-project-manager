@@ -38,16 +38,16 @@ public class User {
     String email;
 
     @NotEmpty(message = "Password is required")
-    @Size(min = 6, max = 30, message = "Password must be between 6 and 30 characters")
+    @Size(min = 6, max = 128, message = "Password must be between 6 and 30 characters")
     String password;
 
     @Transient
-    @NotEmpty(message = "Firstname is required")
+    @NotEmpty(message = "Confirm Password is required")
     @Size(min = 6, max = 30, message = "Confirm Password must be between 6 and 30 characters")
     String confirmPassword;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "projects_id"))
+    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
     List<Project> assignedProjects;
 
     @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)

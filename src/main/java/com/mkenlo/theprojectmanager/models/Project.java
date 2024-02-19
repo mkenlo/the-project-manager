@@ -39,11 +39,11 @@ public class Project {
     Date dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     User leader;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "projects_id"), inverseJoinColumns = @JoinColumn(name = "users_id"))
+    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     List<User> assignedUsers;
 
     public Project() {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkenlo.theprojectmanager.models.Project;
+import com.mkenlo.theprojectmanager.models.User;
 import com.mkenlo.theprojectmanager.repositories.ProjectRepository;
 
 @Service
@@ -31,7 +32,7 @@ public class ProjectService {
         return optional.get();
     }
 
-    public List<Project> getByLead(long userId) {
-        return repo.findByLeader(userId);
+    public List<Project> getByLead(User user) {
+        return repo.findByLeader(user);
     }
 }
