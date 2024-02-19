@@ -1,0 +1,16 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #DC143C;
+}
+
+a{
+    color: #9F2B68;
+    text-decoration: none;
+}
+a:hover{
+    color: #DE3163;
+}
