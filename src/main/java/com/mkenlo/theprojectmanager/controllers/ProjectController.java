@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -71,14 +72,31 @@ public class ProjectController {
             redirect.addFlashAttribute("error", "Action requires to log in");
             return "redirect:/";
         }
-        User user = userService.findById(userId);
-        if (user == null) {
-            redirect.addFlashAttribute("error", "Unknown User");
-            return "redirect:/";
-        }
 
         if (result.hasErrors()) {
             return "project-new.jsp";
+        }
+
+        project.getAssignedUsers().add(project.getLeader());
+        projectService.save(project);
+
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/projects/{projectId}/join/{userId}")
+    public String joinProjectTeam(@PathVariable("projectId") long projectId, @PathVariable("userId") long userId,
+            HttpSession session, Model model, RedirectAttributes redirect) {
+        Long loggedUserId = (Long) session.getAttribute("loggedUserId");
+
+        if (loggedUserId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        User user = userService.findById(userId);
+        Project project = projectService.getById(projectId);
+        if (user == null || project == null) {
+            redirect.addFlashAttribute("error", "Invalid Payload");
+            return "redirect:/dashboard";
         }
 
         project.getAssignedUsers().add(user);
@@ -87,4 +105,25 @@ public class ProjectController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/projects/{projectId}/leave/{userId}")
+    public String leaveProjectTeam(@PathVariable("projectId") long projectId, @PathVariable("userId") long userId,
+            HttpSession session, Model model, RedirectAttributes redirect) {
+        Long loggedUserId = (Long) session.getAttribute("loggedUserId");
+
+        if (loggedUserId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        User user = userService.findById(userId);
+        Project project = projectService.getById(projectId);
+        if (user == null || project == null) {
+            redirect.addFlashAttribute("error", "Invalid Payload");
+            return "redirect:/dashboard";
+        }
+
+        project.getAssignedUsers().remove(user);
+        projectService.save(project);
+
+        return "redirect:/dashboard";
+    }
 }
