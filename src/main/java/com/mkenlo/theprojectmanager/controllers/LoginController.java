@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -44,13 +45,19 @@ public class LoginController {
     @PostMapping("/login")
     public String doLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult result, Model model,
             HttpSession session) {
-        userService.doLogin(loginUser, result);
+        User user = userService.doLogin(loginUser, result);
         if (result.hasErrors()) {
             model.addAttribute("newUser", new User());
             return "index.jsp";
         }
-        session.setAttribute("loggedUser", loginUser);
+        session.setAttribute("loggedUser", user);
         return "redirect:/dashboard";
+    }
+
+    @GetMapping("/logout")
+    public String doLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
 }
