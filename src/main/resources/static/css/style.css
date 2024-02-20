@@ -9,12 +9,37 @@ h6 {
 
 a{
     text-decoration: none;
+    color: #6c3fe8;
 }
 a:hover{
-    color: #DE3163;
+    color: #7f34c9;
 }
 .errors {
     font-size: .875em;
     margin-top: 0.25em;
     color: #e60553;
+}
+
+body{
+    background-color: #f4f2fa;
+}
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+.row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-purple{
+    background-color: #6c3fe8;
+    color: white;
+}
+
+.text-purple{
+    color: #6c3fe8;
 }

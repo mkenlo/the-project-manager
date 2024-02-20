@@ -35,4 +35,8 @@ public class ProjectService {
     public List<Project> getByLead(User user) {
         return repo.findByLeader(user);
     }
+
+    public List<Project> getByExcludingUser(long userId) {
+        return repo.findByExcludingUser(userId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.mkenlo.theprojectmanager.repositories;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     Optional<Project> findById(Long id);
 
-    List<Project> findByLeader(User user);;
+    List<Project> findByLeader(User user);
+
+    @Query(value = "SELECT * FROM projects p WHERE p.user_id != ?1", nativeQuery = true)
+    List<Project> findByExcludingUser(long userId);
 }
