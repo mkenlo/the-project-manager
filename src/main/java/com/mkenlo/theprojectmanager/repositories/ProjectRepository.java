@@ -19,6 +19,6 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     List<Project> findByLeader(User user);
 
-    @Query(value = "SELECT p.id, p.title, p.description,p.user_id, p.due_date FROM `projects` p inner JOIN `project-members` t ON p.id = t.project_id WHERE t.user_id != ?1 and p.user_id != ?1", nativeQuery = true)
+    @Query(value = "SELECT * from `projects` WHERE id NOT in (SELECT project_id FROM `project-members` WHERE user_id = ?1 )", nativeQuery = true)
     List<Project> findByExcludingUser(long userId);
 }
