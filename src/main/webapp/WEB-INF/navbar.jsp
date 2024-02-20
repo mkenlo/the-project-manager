@@ -19,8 +19,8 @@
         
       </ul>
       <form class="d-flex">
-        <span class="material-symbols-outlined">person</span>
-        <label class="px-2">${loggedUser.firstname} ${loggedUser.lastname}</label>
+        <span class="material-symbols-outlined my-2 ">person</span>
+        <label class="px-2 my-2 ">${loggedUser.firstname} ${loggedUser.lastname}</label>
         <a href="/logout" class="btn btn-outline-danger">Logout</a>
       </form>
     </div>

@@ -1,7 +1,10 @@
 package com.mkenlo.theprojectmanager.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +38,7 @@ public class Project {
     String description;
 
     @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     Date dueDate;
 
@@ -47,6 +51,7 @@ public class Project {
     List<User> assignedUsers;
 
     public Project() {
+        this.assignedUsers = new ArrayList<User>();
     }
 
     public Long getId() {

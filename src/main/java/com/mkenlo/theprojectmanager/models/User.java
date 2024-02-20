@@ -1,5 +1,6 @@
 package com.mkenlo.theprojectmanager.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -57,6 +58,9 @@ public class User {
     List<Task> createdTasks;
 
     public User() {
+        this.projectsLed = new ArrayList<Project>();
+        this.assignedProjects = new ArrayList<Project>();
+        this.createdTasks = new ArrayList<Task>();
     }
 
     public Long getId() {

@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -38,7 +37,7 @@ public class LoginController {
             model.addAttribute("loginUser", new LoginUser());
             return "index.jsp";
         }
-        session.setAttribute("loggedUser", user);
+        session.setAttribute("loggedUserId", user.getId());
         return "redirect:/dashboard";
     }
 
@@ -50,7 +49,7 @@ public class LoginController {
             model.addAttribute("newUser", new User());
             return "index.jsp";
         }
-        session.setAttribute("loggedUser", user);
+        session.setAttribute("loggedUserId", user.getId());
         return "redirect:/dashboard";
     }
 

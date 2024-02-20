@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
+    <title>Add a new project</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="/css/style.css"/>
@@ -37,7 +37,7 @@
                     
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="date" class="form-control" id="projectDueDate" name="dueDate">
+                            <form:input type="date" class="form-control" id="projectDueDate" path="dueDate"/>
                             <form:label path="title" for="projectDueDate">Due Date</form:label>
                         </div>
                         <form:errors path="dueDate" class="errors" />

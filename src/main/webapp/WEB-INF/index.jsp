@@ -68,10 +68,10 @@
             <div class="col-md-4 col-sm-6 p-2">
 
                     <div class="row p-2">
-                        <c:if test="${loginRequired!=null}" >
+                        <c:if test="${error!=null}" >
                             <div class="alert alert-danger" role="alert">
                             <h4 class="alert-heading">Oups!</h4>
-                                <p>${loginRequired}</p>            
+                                <p>${error}</p>            
                         </c:if>        
                     </div>
 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<html>
 <%@ page isErrorPage="true" %> 
 <!doctype html>
 <html lang="en">
@@ -32,6 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>
+                                        <th scope="col"> Project</th>
                                         <th scope="col"> Team Lead</th>
                                         <th scope="col"> Due Date </th>
                                         <th scope="col"> Actions</th>
@@ -40,12 +43,13 @@
                                 <tbody>
                                     <c:forEach var="item" items="${projects}">
                                         <tr>
-                                            <c:if test="${item.leader.id!=loggedUser.id}">
+                                            <!--<c:if test="${item.leader.id!=loggedUser.id}">-->
                                                 <td>${item.id}</td>
+                                                <td><a href="/projects/${item.id}">${item.title}</a></td>
                                                 <td>${item.leader.firstname} ${item.leader.lastname}</td>
-                                                <td>${item.dueDate}</td>
+                                                <td><fmt:formatDate type ="date" value = "${item.dueDate}" /></td>
                                                 <td><a href="/projects/${item.id}/join/${loggedUser.id}">Join team</a> </td>   
-                                            </c:if>                                    
+                                            <!--</c:if> -->                                   
                                         
                                         </tr>
                                     </c:forEach>
@@ -70,30 +74,26 @@
                                 <thead>
                                     <tr>
                                         <th scope="col"> # </th>
+                                        <th scope="col"> Project</th>
                                         <th scope="col"> Team Lead</th>
                                         <th scope="col"> Due Date </th>
                                         <th scope="col"> Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> Herman Beck </td>
-                                        <td> May 15, 2015 </td>
-                                        <td><a href="/">Leave team</a></td>
-                                    </tr>
                                     <c:forEach var="item" items="${loggedUser.assignedProjects}">
                                         <tr>                                            
                                             <td>${item.id}</td>
+                                            <td><a href="/projects/${item.id}">${item.title}</a></td>
                                             <td>${item.leader.firstname} ${item.leader.lastname}</td>
-                                            <td>${item.dueDate}</td>
+                                            <td><fmt:formatDate type ="date" value = "${item.dueDate}" /></td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${item.leader.id==loggedUser.id}">
                                                         <a href="/projects/${item.id}/join/${loggedUser.id}">Edit</a> 
                                                     </c:when>
                                                     <c:otherwise> 
-                                                        <a href="/projects/${item.id}/join/${loggedUser.id}">Edit</a> 
+                                                        <a href="/projects/${item.id}/leave/${loggedUser.id}">Leave Team</a> 
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>                                               
