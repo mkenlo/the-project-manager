@@ -16,7 +16,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -37,6 +40,7 @@ public class Project {
     @Size(min = 3, max = 300, message = "description must be between 3 and 300 characters")
     String description;
 
+    @Temporal(TemporalType.DATE)
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
@@ -49,6 +53,9 @@ public class Project {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "teammember_id"))
     Set<User> assignedUsers;
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    Set<Task> tasks;
 
     public Project() {
         this.assignedUsers = new HashSet<User>();
@@ -100,6 +107,14 @@ public class Project {
 
     public void setAssignedUsers(Set<User> assignedUsers) {
         this.assignedUsers = assignedUsers;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
 }

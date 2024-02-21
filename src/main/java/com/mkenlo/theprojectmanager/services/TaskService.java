@@ -1,5 +1,7 @@
 package com.mkenlo.theprojectmanager.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class TaskService {
 
     public Task save(Task task) {
         return repo.save(task);
+    }
+
+    public List<Task> getAll() {
+        return repo.findAll();
     }
 }

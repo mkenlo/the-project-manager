@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mkenlo.theprojectmanager.models.Project;
+import com.mkenlo.theprojectmanager.models.Task;
 import com.mkenlo.theprojectmanager.models.User;
 import com.mkenlo.theprojectmanager.services.ProjectService;
+import com.mkenlo.theprojectmanager.services.TaskService;
 import com.mkenlo.theprojectmanager.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +30,9 @@ public class ProjectController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TaskService taskService;
 
     @GetMapping("/dashboard")
     public String index(Model model, HttpSession session, RedirectAttributes redirect) {
@@ -201,5 +206,55 @@ public class ProjectController {
         projectService.delete(projectId);
         return "redirect:/dashboard";
 
+    }
+
+    @GetMapping("/projects/{projectId}/tasks")
+    public String getProjectTasks(@PathVariable("projectId") long projectId, HttpSession session,
+            RedirectAttributes redirect, Model model) {
+        Long loggedUserId = (Long) session.getAttribute("loggedUserId");
+
+        if (loggedUserId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        Project project = projectService.getById(projectId);
+        if (project == null) {
+            redirect.addFlashAttribute("error", "Invalid Payload");
+            return "redirect:/dashboard";
+        }
+
+        model.addAttribute("project", project);
+        model.addAttribute("loggedUser", userService.findById(loggedUserId));
+        model.addAttribute("newTask", new Task());
+        model.addAttribute("tasks", taskService.getAll());
+        return "project-tasks-detail.jsp";
+    }
+
+    @PostMapping("/projects/{projectId}/tasks")
+    public String createTask(@PathVariable("projectId") long projectId, @Valid @ModelAttribute("newTask") Task task,
+            BindingResult result, HttpSession session,
+            RedirectAttributes redirect, Model model) {
+        Long loggedUserId = (Long) session.getAttribute("loggedUserId");
+
+        if (loggedUserId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        Project project = projectService.getById(projectId);
+        if (project == null) {
+            redirect.addFlashAttribute("error", "Invalid Payload");
+            return "redirect:/dashboard";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("project", project);
+            model.addAttribute("loggedUser", userService.findById(loggedUserId));
+            model.addAttribute("tasks", taskService.getAll());
+            return "project-tasks-detail.jsp";
+        }
+
+        taskService.save(task);
+
+        return "redirect:/projects/" + project.getId() + "/tasks";
     }
 }
