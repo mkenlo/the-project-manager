@@ -39,4 +39,8 @@ public class ProjectService {
     public List<Project> getByExcludingUser(long userId) {
         return repo.findByExcludingUser(userId);
     }
+
+    public void delete(long projectId) {
+        repo.deleteById(projectId);
+    }
 }

@@ -61,7 +61,7 @@
 
     </div>
 
-
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 

@@ -55,22 +55,40 @@
                 <c:if test="${loggedUser.id == project.leader.id}"> 
                     <div>
                         <a href="/projects/${project.id}/edit" class="btn btn-primary">Edit</a>            
-                        <a href="/projects/${project.id}/delete" class="btn btn-danger">Delete</a>  
+                        <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deletion-modal">Delete</a>
+                        
                     </div>              
                 </c:if>
             
             <div>
         </div> 
-
-
-
-
-
-        
-
     </div>
 
+    <!-- Modal for deletion request -->
+    <div class="modal" tabindex="-1" id="deletion-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Deletion Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete this project: "<strong class="text-purple">${project.title}</strong>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form action="/projects/${project.id}/delete" method="post">
+                    <input type="hidden" value="delete" name="_method">
+                    <button type="submit" class="btn btn-danger">Yes, delete</button>
+                </form> 
+                
+            </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- end of modal-->
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 

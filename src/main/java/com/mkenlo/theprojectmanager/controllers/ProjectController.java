@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -185,5 +186,20 @@ public class ProjectController {
         projectService.save(project);
 
         return "redirect:/dashboard";
+    }
+
+    @DeleteMapping("/projects/{projectId}/delete")
+    public String deleteProject(@PathVariable("projectId") long projectId, HttpSession session,
+            RedirectAttributes redirect) {
+
+        Long userId = (Long) session.getAttribute("loggedUserId");
+
+        if (userId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        projectService.delete(projectId);
+        return "redirect:/dashboard";
+
     }
 }
