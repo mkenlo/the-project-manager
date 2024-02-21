@@ -23,10 +23,10 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
         
-                    <h4 class="mb-3">Create a Project</h4>
+                <h4 class="mb-3">Create a Project</h4>
                 
                 
-                     <form:form action="/projects/new" method="POST" modelAttribute="newProject">
+                <form:form action="/projects/new" method="POST" modelAttribute="newProject">
                     <div class="mb-3">
                         <div class="form-floating">
                             <form:input class="form-control" path="title"/>
@@ -49,17 +49,13 @@
                         </div>
                         <form:errors path="description" class="errors" />
                     </div>
-                    <div>
+                    <div class="d-flex">
                         <input type="hidden" value="${loggedUser.id}" name="leader">
-                        <input type="submit" class="form-control btn btn-purple" value="Add">
+                        <a href="/dashboard" class="form-control btn btn-outline-danger mx-3">Cancel</a>
+                        <input type="submit" class="form-control btn btn-purple mx-3" value="Add">
                     </div>
 
                 </form:form>
-                
-                
-                            
-            
-            
             </div>
         </div>
 

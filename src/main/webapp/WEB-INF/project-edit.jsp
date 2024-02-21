@@ -48,11 +48,13 @@
                         </div>
                         <form:errors path="description" class="errors" />
                     </div>
-                    <div>
+                    <div class="d-flex">
                         <form:hidden path="id"/>
                         <form:hidden path="leader"/>
                         <input type="hidden" value="PUT" name="_method">
-                        <input type="submit" class="form-control btn btn-purple" value="Edit">
+                        <a href="/dashboard" class="form-control btn btn-outline-danger mx-3">Cancel</a>
+
+                        <input type="submit" class="form-control btn btn-purple mx-3" value="Edit">
                     </div>
 
                 </form:form>
