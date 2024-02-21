@@ -10,9 +10,6 @@
           <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/my-projects">My projects</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/tasks">My Tasks</a>
         </li>
         

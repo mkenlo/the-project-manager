@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mkenlo.theprojectmanager.models.Project;
@@ -46,7 +47,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/new")
-    public String initEditForm(Model model, HttpSession session, RedirectAttributes redirect) {
+    public String initCreateForm(Model model, HttpSession session, RedirectAttributes redirect) {
         Long userId = (Long) session.getAttribute("loggedUserId");
 
         if (userId == null) {
@@ -122,6 +123,65 @@ public class ProjectController {
         }
 
         project.getAssignedUsers().remove(user);
+        projectService.save(project);
+
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/projects/{projectId}")
+    public String detailProject(@PathVariable("projectId") long projectId, HttpSession session, Model model,
+            RedirectAttributes redirect) {
+        Long loggedUserId = (Long) session.getAttribute("loggedUserId");
+
+        if (loggedUserId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        Project project = projectService.getById(projectId);
+        if (project == null) {
+            redirect.addFlashAttribute("error", "Invalid Payload");
+            return "redirect:/dashboard";
+        }
+
+        model.addAttribute("project", project);
+        model.addAttribute("loggedUser", userService.findById(loggedUserId));
+        return "project-detail.jsp";
+    }
+
+    @GetMapping("/projects/{projectId}/edit")
+    public String initEditForm(@PathVariable("projectId") long projectId, Model model, HttpSession session,
+            RedirectAttributes redirect) {
+        Long userId = (Long) session.getAttribute("loggedUserId");
+
+        if (userId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+        User user = userService.findById(userId);
+        if (user == null) {
+            redirect.addFlashAttribute("error", "Unknown User");
+            return "redirect:/";
+        }
+        model.addAttribute("loggedUser", user);
+        model.addAttribute("project", projectService.getById(projectId));
+        return "project-edit.jsp";
+    }
+
+    @PutMapping("/projects/{projectId}/edit")
+    public String processEditProject(@PathVariable("projectId") long projectId,
+            @Valid @ModelAttribute("project") Project project, BindingResult result,
+            HttpSession session, RedirectAttributes redirect) {
+        Long userId = (Long) session.getAttribute("loggedUserId");
+
+        if (userId == null) {
+            redirect.addFlashAttribute("error", "Action requires to log in");
+            return "redirect:/";
+        }
+
+        if (result.hasErrors()) {
+            return "project-edit.jsp";
+        }
+        System.out.println(project.getTitle());
         projectService.save(project);
 
         return "redirect:/dashboard";

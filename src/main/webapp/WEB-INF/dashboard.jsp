@@ -90,7 +90,7 @@
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${item.leader.id==loggedUser.id}">
-                                                        <a href="/projects/${item.id}/join/${loggedUser.id}">Edit</a> 
+                                                        <a href="/projects/${item.id}/edit">Edit</a> 
                                                     </c:when>
                                                     <c:otherwise> 
                                                         <a href="/projects/${item.id}/leave/${loggedUser.id}">Leave Team</a> 
