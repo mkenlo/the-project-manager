@@ -181,7 +181,7 @@ public class ProjectController {
         if (result.hasErrors()) {
             return "project-edit.jsp";
         }
-        System.out.println(project.getTitle());
+        project.getAssignedUsers().add(project.getLeader());
         projectService.save(project);
 
         return "redirect:/dashboard";

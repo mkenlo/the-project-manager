@@ -1,7 +1,7 @@
 package com.mkenlo.theprojectmanager.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,19 +48,19 @@ public class User {
     String confirmPassword;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-    List<Project> assignedProjects;
+    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "teammember_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+    Set<Project> assignedProjects;
 
     @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
-    List<Project> projectsLed;
+    Set<Project> projectsLed;
 
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
-    List<Task> createdTasks;
+    Set<Task> createdTasks;
 
     public User() {
-        this.projectsLed = new ArrayList<Project>();
-        this.assignedProjects = new ArrayList<Project>();
-        this.createdTasks = new ArrayList<Task>();
+        this.projectsLed = new HashSet<Project>();
+        this.assignedProjects = new HashSet<Project>();
+        this.createdTasks = new HashSet<Task>();
     }
 
     public Long getId() {
@@ -111,27 +111,27 @@ public class User {
         this.confirmPassword = confirmPassword;
     }
 
-    public List<Project> getAssignedProjects() {
+    public Set<Project> getAssignedProjects() {
         return assignedProjects;
     }
 
-    public void setAssignedProjects(List<Project> assignedProjects) {
+    public void setAssignedProjects(HashSet<Project> assignedProjects) {
         this.assignedProjects = assignedProjects;
     }
 
-    public List<Project> getProjectsLed() {
+    public Set<Project> getProjectsLed() {
         return projectsLed;
     }
 
-    public void setProjectsLed(List<Project> projectsLed) {
+    public void setProjectsLed(Set<Project> projectsLed) {
         this.projectsLed = projectsLed;
     }
 
-    public List<Task> getCreatedTasks() {
+    public Set<Task> getCreatedTasks() {
         return createdTasks;
     }
 
-    public void setCreatedTasks(List<Task> createdTasks) {
+    public void setCreatedTasks(Set<Task> createdTasks) {
         this.createdTasks = createdTasks;
     }
 

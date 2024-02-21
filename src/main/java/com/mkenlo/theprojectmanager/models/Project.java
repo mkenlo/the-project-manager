@@ -1,8 +1,8 @@
 package com.mkenlo.theprojectmanager.models;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,15 +43,15 @@ public class Project {
     Date dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "lead_id")
     User leader;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    List<User> assignedUsers;
+    @JoinTable(name = "project-members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "teammember_id"))
+    Set<User> assignedUsers;
 
     public Project() {
-        this.assignedUsers = new ArrayList<User>();
+        this.assignedUsers = new HashSet<User>();
     }
 
     public Long getId() {
@@ -94,11 +94,11 @@ public class Project {
         this.leader = leader;
     }
 
-    public List<User> getAssignedUsers() {
+    public Set<User> getAssignedUsers() {
         return assignedUsers;
     }
 
-    public void setAssignedUsers(List<User> assignedUsers) {
+    public void setAssignedUsers(Set<User> assignedUsers) {
         this.assignedUsers = assignedUsers;
     }
 

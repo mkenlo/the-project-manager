@@ -38,6 +38,16 @@
                     <div class="col-md-3"><p class="fw-semibold">Due Date</p></div>
                     <div class="col-md-9"><p><fmt:formatDate type ="date" value = "${project.dueDate}" /></p></div> 
                 </div>
+                <div class="row">   
+                    <div class="col-md-3"><p class="fw-semibold">Project's Members <span class="badge text-bg-info">${project.assignedUsers.size}</span></p></div>
+                    <div class="col-md-9">
+                        <p>
+                            <c:forEach var="person" items="${project.assignedUsers}">
+                                ${person.firstname} ${person.lastname},                      
+                            </c:forEach>
+                        </p>
+                    </div> 
+                </div>
             
             </div>
             <div class="card-footer d-flex justify-content-between">

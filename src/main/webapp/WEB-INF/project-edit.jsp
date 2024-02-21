@@ -49,8 +49,9 @@
                         <form:errors path="description" class="errors" />
                     </div>
                     <div>
+                        <form:hidden path="id"/>
+                        <form:hidden path="leader"/>
                         <input type="hidden" value="PUT" name="_method">
-                        <input type="hidden" value="${loggedUser.id}" name="leader">
                         <input type="submit" class="form-control btn btn-purple" value="Edit">
                     </div>
 
