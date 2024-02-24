@@ -39,8 +39,8 @@
                     </div>
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="email" class="form-control" for="userEmail" name="email"/>
-                            <label for="userEmail">Email address</label>
+                            <form:input type="email" class="form-control" id="userEmail" path="email"/>
+                            <form:label for="userEmail" path="email">Email address</form:label>
                         </div>
                         <form:errors path="email" class="errors" />
                     </div>
@@ -79,16 +79,16 @@
                 <form:form action="/login" method="POST" modelAttribute="loginUser">               
                     <div class="mb-3">
                         <div class="form-floating">
-                            <input type="email" class="form-control" id="loginEmail" name="email">
-                            <label for="loginEmail">Email address</label>
+                            <form:input type="email" class="form-control" id="loginEmail" path="email"/>
+                            <form:label for="loginEmail" path="email">Email address</form:label>
                         </div>
                         <form:errors path="email" class="errors" />                        
                     </div>                    
                     
                     <div class="mb-3">
                         <div class="form-floating">
-                            <form:password class="form-control" path="password"/>
-                            <form:label path="password">Password</form:label>
+                            <form:password class="form-control" path="password" id="loginPwd"/>
+                            <form:label path="password" for="loginPwd">Password</form:label>
                         </div>
                         <form:errors path="password" class="errors"  />
                     </div>
