@@ -18,3 +18,7 @@ spring.datasource.password=<YOUR_DB_PASSWORD>
 
 - Run with maven : `./mvnw spring-boot:run`
 - Visit `http://localhost:8080`
+
+## Demo
+
+Check out a mini demo [here](demo/the-project-manager-demo.webm)
