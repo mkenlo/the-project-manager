@@ -147,7 +147,7 @@ public class ProjectController {
         model.addAttribute("loggedUser", userService.findByUsername(principal.getName()));
         model.addAttribute("project", project);
         model.addAttribute("newTask", new Task());
-        model.addAttribute("tasks", taskService.getAll());
+
         return "project-tasks-detail.jsp";
     }
 
@@ -165,7 +165,6 @@ public class ProjectController {
         if (result.hasErrors()) {
             model.addAttribute("loggedUser", userService.findByUsername(principal.getName()));
             model.addAttribute("project", project);
-            model.addAttribute("tasks", taskService.getAll());
             return "project-tasks-detail.jsp";
         }
 

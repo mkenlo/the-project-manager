@@ -34,15 +34,13 @@
                 <div class="d-flex">
                     <form:input  path="name" class="form-control" placeholder="Add a task ticket for this project?"/>
                     <button type="submit" class="btn btn-purple mx-2">Add</button>
-
                 </div>
-                
                 
             </form:form>
 
             <h5 class="text-purple my-3">Current Tasks</h5> 
             <div class="list-group mt-3 ">
-                <c:forEach var="task" items="${tasks}">
+                <c:forEach var="task" items="${project.tasks}">
                     <div class="list-group-item ">
                         <div class="d-flex w-100 justify-content-between">
                             <label class="mb-1 text-purple">${task.name}</label>

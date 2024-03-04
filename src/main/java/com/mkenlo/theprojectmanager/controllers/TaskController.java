@@ -1,5 +1,7 @@
 package com.mkenlo.theprojectmanager.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,19 +24,8 @@ public class TaskController {
     TaskService taskService;
 
     @GetMapping("/tasks")
-    public String index(Model model, HttpSession session, RedirectAttributes redirect) {
-
-        Long userId = (Long) session.getAttribute("loggedUserId");
-
-        if (userId == null) {
-            redirect.addFlashAttribute("error", "Action requires to log in");
-            return "redirect:/";
-        }
-        User user = userService.findById(userId);
-        if (user == null) {
-            redirect.addFlashAttribute("error", "Unknown User");
-            return "redirect:/";
-        }
+    public String index(Model model, Principal principal) {        
+        User user = userService.findByUsername(principal.getName());
         model.addAttribute("loggedUser", user);
         model.addAttribute("tasks", taskService.getAll());
         return "task-list.jsp";
