@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -30,33 +31,34 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String createUser(@Valid @ModelAttribute("newUser") User user, BindingResult result, Model model,
-            HttpSession session) {
-        userService.createUser(user, result);
+    public String createUser(@Valid @ModelAttribute("newUser") User user, BindingResult result, Model model) {
+        userService.createUser(user, result, false);
         if (result.hasErrors()) {
             model.addAttribute("loginUser", new LoginUser());
-            return "index.jsp";
+            return "register.jsp";
         }
-        session.setAttribute("loggedUserId", user.getId());
-        return "redirect:/dashboard";
-    }
-
-    @PostMapping("/login")
-    public String doLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult result, Model model,
-            HttpSession session) {
-        User user = userService.doLogin(loginUser, result);
-        if (result.hasErrors()) {
-            model.addAttribute("newUser", new User());
-            return "index.jsp";
-        }
-        session.setAttribute("loggedUserId", user.getId());
-        return "redirect:/dashboard";
+        return "redirect:/login";
     }
 
     @GetMapping("/logout")
     public String doLogout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String loginForm(Model model, @RequestParam(value = "error", required = false) String error) {
+        if (error != null)
+            model.addAttribute("error", "Username or Password incorrect");
+
+        model.addAttribute("loginUser", new LoginUser());
+        return "login.jsp";
+    }
+
+    @GetMapping("/register")
+    public String registerForm(Model model) {
+        model.addAttribute("newUser", new User());
+        return "register.jsp";
     }
 
 }

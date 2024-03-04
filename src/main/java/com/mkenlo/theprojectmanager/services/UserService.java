@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 
 import com.mkenlo.theprojectmanager.models.LoginUser;
 import com.mkenlo.theprojectmanager.models.User;
+import com.mkenlo.theprojectmanager.repositories.RoleRepository;
 import com.mkenlo.theprojectmanager.repositories.UserRepository;
 
 @Service
@@ -17,6 +18,9 @@ public class UserService {
     @Autowired
     UserRepository repo;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     public User findById(long id) {
         Optional<User> optional = repo.findById(id);
         if (optional.isEmpty())
@@ -24,7 +28,7 @@ public class UserService {
         return optional.get();
     }
 
-    public User createUser(User user, BindingResult result) {
+    public User createUser(User user, BindingResult result, boolean isAdmin) {
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             result.rejectValue("password", "match", "Confirm Password must Match Password");
@@ -35,14 +39,19 @@ public class UserService {
             return null;
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashed);
+        if (isAdmin) {
+            user.getRoles().add(roleRepository.findByName("ROLE_ADMIN"));
+        } else
+            user.getRoles().add(roleRepository.findByName("ROLE_USER"));
+
         return repo.save(user);
     }
 
     public User doLogin(LoginUser user, BindingResult result) {
 
-        Optional<User> potentialUser = repo.findByEmail(user.getEmail());
+        Optional<User> potentialUser = repo.findByUsername(user.getUsername());
         if (!potentialUser.isPresent()) {
-            result.rejectValue("email", "exist", "Email not found");
+            result.rejectValue("username", "exist", "Username not found");
         } else if (!BCrypt.checkpw(user.getPassword(), potentialUser.get().getPassword()))
             result.rejectValue("password", "match", "Invalid Password");
         if (result.hasErrors())
@@ -50,7 +59,9 @@ public class UserService {
         return potentialUser.get();
     }
 
-    public User save(User user) {
-        return repo.save(user);
+    public User findByUsername(String username) {
+        Optional<User> optional = repo.findByUsername(username);
+        return optional.get();
     }
+
 }

@@ -40,6 +40,11 @@ body{
     color: white;
 }
 
+.btn-purple:hover {
+    background-color: #5228c4;
+    color: white;
+}
+
 .text-purple{
     color: #6c3fe8;
 }

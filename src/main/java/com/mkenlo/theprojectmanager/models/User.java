@@ -1,6 +1,8 @@
 package com.mkenlo.theprojectmanager.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -25,6 +27,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @NotEmpty
+    @Size(min = 6, max = 10, message = "Username must be between 6 and 10 characters")
+    private String username;
 
     @NotEmpty(message = "Firstname is required")
     @Size(min = 3, max = 30, message = "Firstname must be between 3 and 30 characters")
@@ -57,10 +63,15 @@ public class User {
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
     Set<Task> createdTasks;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
+
     public User() {
         this.projectsLed = new HashSet<Project>();
         this.assignedProjects = new HashSet<Project>();
         this.createdTasks = new HashSet<Task>();
+        this.roles = new ArrayList<>();
     }
 
     public Long getId() {
@@ -133,6 +144,26 @@ public class User {
 
     public void setCreatedTasks(Set<Task> createdTasks) {
         this.createdTasks = createdTasks;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAssignedProjects(Set<Project> assignedProjects) {
+        this.assignedProjects = assignedProjects;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 }

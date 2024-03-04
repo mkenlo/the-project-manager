@@ -13,90 +13,15 @@
     
 </head>
     <body>
-         <div class="container bg-gray p-5">
-        <div class="row">
+    <div class="container">
+        <div class="jumbotron mt-3">
             <h1 class="display-1 text-primary">Project Manager</h1>
-            <h2 class="text-primary-emphasis">A place for teams to manage projects</h2>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-4 col-sm-6 p-2 mt-3" >
-                <h3>Create an account</h3>
-                `<form:form action="/register" method="POST" modelAttribute="newUser">
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:input cssClass="form-control" path="firstname"/>
-                            <form:label path="firstname">First Name</form:label>
-                        </div>
-                        <form:errors path="firstname" class="errors" />
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:input cssClass="form-control" path="lastname"/>
-                            <form:label path="lastname">Last Name</form:label>
-                        </div>
-                        <form:errors path="lastname" class="errors" />
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:input type="email" class="form-control" id="userEmail" path="email"/>
-                            <form:label for="userEmail" path="email">Email address</form:label>
-                        </div>
-                        <form:errors path="email" class="errors" />
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:password class="form-control" path="password"/>
-                            <form:label path="password">Password</form:label>
-                        </div>
-                        <form:errors path="password" class="errors" />
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:password class="form-control" path="confirmPassword"/>
-                            <form:label path="confirmPassword">Confirm Password</form:label>
-                        </div>
-                        <form:errors path="confirmPassword" class="errors" />
-                    </div>
-                    <div>
-                        <input type="submit" class="form-control btn btn-outline-primary" value="Register">
-                    </div>
-
-                </form:form>
-            </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-4 col-sm-6 p-2">
-
-                    <div class="row p-2">
-                        <c:if test="${error!=null}" >
-                            <div class="alert alert-danger" role="alert">
-                            <h4 class="alert-heading">Oups!</h4>
-                                <p>${error}</p>            
-                        </c:if>        
-                    </div>
-
-                <h3>Login</h3>
-                <form:form action="/login" method="POST" modelAttribute="loginUser">               
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:input type="email" class="form-control" id="loginEmail" path="email"/>
-                            <form:label for="loginEmail" path="email">Email address</form:label>
-                        </div>
-                        <form:errors path="email" class="errors" />                        
-                    </div>                    
-                    
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <form:password class="form-control" path="password" id="loginPwd"/>
-                            <form:label path="password" for="loginPwd">Password</form:label>
-                        </div>
-                        <form:errors path="password" class="errors"  />
-                    </div>
-                    <div>
-                        <input type="submit" class="form-control btn btn-outline-primary" value="Log in">
-                    </div>
-                </form:form>
-            </div>
+            <h2 class="text-primary-emphasis mb-3">A place for teams to manage projects</h2>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.</p>
+            <a class="btn btn-lg btn-primary" href="/login" role="button">Get Started</a>
         </div>
     </div>
 

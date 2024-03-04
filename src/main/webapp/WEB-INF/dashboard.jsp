@@ -25,7 +25,7 @@
             <div class="col-xl-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4 class="card-title text-purple">All Projects </h4>
+                        <h4 class="card-title text-purple">Other Projects </h4>
                         <a href="/projects/new" class="btn btn-purple">+ new project</a>
                         </div>
                     <div class="card-body">     
