@@ -4,6 +4,11 @@
 
 This repo is a Java Spring MVC project, a tool for teams amd project manager to mange their projects.
 
+## Requirements
+
+- Java (version>=17)
+- JDK
+
 ## Setup
 
 Maven is used to build this project.
