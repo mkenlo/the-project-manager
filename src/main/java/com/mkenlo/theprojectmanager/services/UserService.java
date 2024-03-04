@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import com.mkenlo.theprojectmanager.models.LoginUser;
+import com.mkenlo.theprojectmanager.models.Role;
 import com.mkenlo.theprojectmanager.models.User;
 import com.mkenlo.theprojectmanager.repositories.RoleRepository;
 import com.mkenlo.theprojectmanager.repositories.UserRepository;
@@ -40,9 +41,18 @@ public class UserService {
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashed);
         if (isAdmin) {
-            user.getRoles().add(roleRepository.findByName("ROLE_ADMIN"));
-        } else
-            user.getRoles().add(roleRepository.findByName("ROLE_USER"));
+            Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+            if (adminRole == null) {
+                adminRole = roleRepository.save(new Role("ROLE_ADMIN"));
+            }
+            user.getRoles().add(adminRole);
+        } else {
+            Role userRole = roleRepository.findByName("ROLE_USER");
+            if (userRole == null) {
+                userRole = roleRepository.save(new Role("ROLE_USER"));
+            }
+            user.getRoles().add(userRole);
+        }
 
         return repo.save(user);
     }
